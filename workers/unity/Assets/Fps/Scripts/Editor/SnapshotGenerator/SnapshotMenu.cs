@@ -25,7 +25,8 @@ namespace Fps.Editor
         private static Snapshot GenerateDefaultSnapshot()
         {
             var snapshot = new Snapshot();
-            snapshot.AddEntity(FpsEntityTemplates.Spawner(Coordinates.Zero));
+            var entityId = snapshot.NextEntityId();
+            snapshot.AddEntity(entityId, FpsEntityTemplates.Spawner(entityId, Coordinates.Zero));
             return snapshot;
         }
 

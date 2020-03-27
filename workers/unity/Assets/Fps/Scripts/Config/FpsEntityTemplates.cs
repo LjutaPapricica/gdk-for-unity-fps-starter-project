@@ -11,7 +11,7 @@ namespace Fps.Config
 {
     public static class FpsEntityTemplates
     {
-        public static EntityTemplate Spawner(Coordinates spawnerCoordinates)
+        public static EntityTemplate Spawner(EntityId entityId, Coordinates spawnerCoordinates)
         {
             var position = new Position.Snapshot(spawnerCoordinates);
             var metadata = new Metadata.Snapshot("PlayerCreator");
@@ -21,11 +21,6 @@ namespace Fps.Config
             template.AddComponent(metadata, WorkerUtils.UnityGameLogic);
             template.AddComponent(new Persistence.Snapshot(), WorkerUtils.UnityGameLogic);
             template.AddComponent(new PlayerCreator.Snapshot(), WorkerUtils.UnityGameLogic);
-
-            var query = InterestQuery.Query(Constraint.RelativeCylinder(150));
-            var interest = InterestTemplate.Create()
-                .AddQueries<Position.Component>(query);
-            template.AddComponent(interest.ToSnapshot(), WorkerUtils.UnityGameLogic);
 
             template.SetReadAccess(WorkerUtils.UnityGameLogic);
             template.SetComponentWriteAccess(EntityAcl.ComponentId, WorkerUtils.UnityGameLogic);
